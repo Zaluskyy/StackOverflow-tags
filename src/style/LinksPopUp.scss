@@ -1,0 +1,57 @@
+.LinksPopUp {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90vw;
+  max-height: 90vh;
+  background-color: white;
+  border: 2px solid black;
+  padding: 30px;
+  border-radius: 12px;
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .exitContainer {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  h1 {
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+  ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    li {
+      text-align: left;
+    }
+  }
+}
+
+.LinksPopUpBackground {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.508);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}

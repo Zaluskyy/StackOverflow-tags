@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from "react";
+import "./style/App.scss";
+
+import StickyHeadTable from "./components/Table";
+import MediportaContext from "./context/context";
+import LinksPopUp from "./components/LinksPopUp";
+import DataFetcher from "./services/DataFetcher";
+
+import { AnimatePresence } from "framer-motion";
 
 function App() {
+  const context = useContext(MediportaContext);
+  const { showMoreLinks, linksPopUpData } = context;
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <DataFetcher />
+      <StickyHeadTable />
+      <AnimatePresence>
+        {showMoreLinks && <LinksPopUp row={linksPopUpData} />}
+      </AnimatePresence>
     </div>
   );
 }

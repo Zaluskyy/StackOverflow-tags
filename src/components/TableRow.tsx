@@ -20,7 +20,13 @@ const Row: React.FC<RowProps> = ({ columns, row }) => {
   }, [showLinks]);
 
   return (
-    <TableRow hover role="checkbox" tabIndex={-1} key={row.count}>
+    <TableRow
+      hover
+      role="checkbox"
+      tabIndex={-1}
+      key={row.count}
+      className="dataRow"
+    >
       {columns.map((column) => {
         const value = row[column.id];
         if (typeof value == "object") {
@@ -36,10 +42,11 @@ const Row: React.FC<RowProps> = ({ columns, row }) => {
               </TableCell>
             );
           } else {
+            const shortLink = value[0].slice(0, 50) + "...";
             return (
               <TableCell key={column.id} align={column.align}>
                 <a href={value} target="_blank">
-                  {value}
+                  {shortLink}
                 </a>
               </TableCell>
             );

@@ -1,4 +1,4 @@
-export type TagItem = {
+export interface TagItem {
     tag: string;
     links: string[];
   };
@@ -27,3 +27,5 @@ export interface RowProps {
   columns: readonly Column[];
   row: any;
 }
+
+export type ISortOrder = "" | "ASCENDING" | "DESCENDING";

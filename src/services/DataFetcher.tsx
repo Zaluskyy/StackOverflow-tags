@@ -30,6 +30,9 @@ const DataFetcher = () => {
             links: tags[tag],
           }));
           setTagList(tagArray);
+        })
+        .catch((err) => {
+          console.log("There was a problem with the fetch operation: " + err);
         });
     };
   }, []);

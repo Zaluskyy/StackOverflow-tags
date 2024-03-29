@@ -7,15 +7,17 @@ import LinksPopUp from "./components/LinksPopUp";
 import DataFetcher from "./services/DataFetcher";
 
 import { AnimatePresence } from "framer-motion";
+import Loading from "./components/Loading";
 
 function App() {
   const context = useContext(MediportaContext);
-  const { showMoreLinks, linksPopUpData } = context;
+  const { showMoreLinks, linksPopUpData, tagList } = context;
 
   return (
     <div className="App">
       <DataFetcher />
-      <StickyHeadTable />
+      {tagList.length == 0 && <Loading />}
+      {tagList.length > 0 && <StickyHeadTable />}
       <AnimatePresence>
         {showMoreLinks && <LinksPopUp row={linksPopUpData} />}
       </AnimatePresence>

@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
+import "../style/Table.scss";
+
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -10,12 +12,12 @@ import TableRow from "@mui/material/TableRow";
 
 import Row from "./TableRow";
 
-import { Data, Column, TagItem } from "../types/types";
+import { Data, Column, TagItem, ISortOrder } from "../types/types";
 import MediportaContext from "../context/context";
 
 const columns: readonly Column[] = [
-  { id: "tag", label: "tag", minWidth: 170 },
-  { id: "count", label: "count", minWidth: 100 },
+  { id: "tag", label: "tag", minWidth: 50 },
+  { id: "count", label: "count", minWidth: 50 },
   { id: "link", label: "link", minWidth: 200 },
 ];
 
@@ -47,12 +49,47 @@ export default function StickyHeadTable() {
 
   const [rows, setRows] = useState<Data[]>([]);
 
+  const [sortOrder, setSortOrder] = useState<ISortOrder>("");
+  const [search, setSearch] = useState<string>("");
+
   useEffect(() => {
-    const tagListArr = tagList.map((item: TagItem) => {
-      return { tag: item.tag, count: item.links.length, link: item.links };
-    });
-    setRows(tagListArr);
-  }, [tagList]);
+    let filteredList = tagList;
+
+    if (search !== "") {
+      filteredList = filteredList.filter((item: TagItem) =>
+        item.tag.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    if (sortOrder === "") {
+      const tagListArr = filteredList.map((item: TagItem) => ({
+        tag: item.tag,
+        count: item.links.length,
+        link: item.links,
+      }));
+      setRows(tagListArr);
+    } else if (sortOrder === "ASCENDING") {
+      const sortedTagListArr = [...filteredList].sort(
+        (a, b) => a.links.length - b.links.length
+      );
+      const rows = sortedTagListArr.map((item) => ({
+        tag: item.tag,
+        count: item.links.length,
+        link: item.links,
+      }));
+      setRows(rows);
+    } else if (sortOrder === "DESCENDING") {
+      const sortedTagListArr = [...filteredList].sort(
+        (a, b) => b.links.length - a.links.length
+      );
+      const rows = sortedTagListArr.map((item) => ({
+        tag: item.tag,
+        count: item.links.length,
+        link: item.links,
+      }));
+      setRows(rows);
+    }
+  }, [tagList, sortOrder, search]);
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -70,7 +107,40 @@ export default function StickyHeadTable() {
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <div className="topContainer">
+        <div className="sortContainer">
+          <span>Sortowanie</span>
+          <select
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value as ISortOrder)}
+          >
+            <option value={""}>Select an option</option>
+            <option value={"ASCENDING"}>ascending</option>
+            <option value={"DESCENDING"}>descending</option>
+          </select>
+        </div>
+        <div className="searchContainer">
+          <input
+            placeholder="Search..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 15, 20, 25, 30, 35, 40, 45, 50]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          style={{ width: "50%", height: 50 }}
+        />
+      </div>
+      <TableContainer
+        sx={{ maxHeight: window.innerHeight - 50 }}
+        className="TableContainer"
+      >
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -78,14 +148,17 @@ export default function StickyHeadTable() {
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  style={{
+                    minWidth: column.minWidth,
+                    background: "#cbd2e4",
+                  }}
                 >
                   {column.label}
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="tableBody">
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
@@ -94,15 +167,6 @@ export default function StickyHeadTable() {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
     </Paper>
   );
 }

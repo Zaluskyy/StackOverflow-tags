@@ -9,20 +9,20 @@ export const MediportaContextProvider = ({
 }: {
   children: ReactNode;
 }) => {
+  const [tagList, setTagList] = useState<TagItem[]>([]);
+
   const [showMoreLinks, setShowMoreLinks] = useState(false);
   const [linksPopUpData, setLinksPopUpData] = useState({});
-
-  const [tagList, setTagList] = useState<TagItem[]>([]);
 
   return (
     <MediportaContext.Provider
       value={{
+        tagList,
+        setTagList,
         showMoreLinks,
         setShowMoreLinks,
         linksPopUpData,
         setLinksPopUpData,
-        tagList,
-        setTagList,
       }}
     >
       {children}

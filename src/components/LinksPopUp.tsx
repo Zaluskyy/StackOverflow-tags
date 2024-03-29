@@ -21,8 +21,6 @@ const LinksPopUp: React.FC<LinksPopUpProps> = ({ row }) => {
     setLinksPopUpData({});
   };
 
-  console.log(link);
-
   const links = link.map((link) => {
     return (
       <li key={link}>

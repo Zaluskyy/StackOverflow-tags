@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import "../style/TableRow.scss";
 
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
@@ -33,6 +34,7 @@ const Row: React.FC<RowProps> = ({ columns, row }) => {
           if (value.length > 1) {
             return (
               <TableCell
+                className="tableCell"
                 style={{ cursor: "pointer" }}
                 onClick={() => setShowLinks((prev) => prev + 1)}
                 key={column.id}
@@ -42,9 +44,13 @@ const Row: React.FC<RowProps> = ({ columns, row }) => {
               </TableCell>
             );
           } else {
-            const shortLink = value[0].slice(0, 50) + "...";
+            const shortLink = value[0].slice(0, 40) + "...";
             return (
-              <TableCell key={column.id} align={column.align}>
+              <TableCell
+                key={column.id}
+                align={column.align}
+                className="tableCell"
+              >
                 <a href={value} target="_blank">
                   {shortLink}
                 </a>
@@ -53,7 +59,11 @@ const Row: React.FC<RowProps> = ({ columns, row }) => {
           }
         } else {
           return (
-            <TableCell key={column.id} align={column.align}>
+            <TableCell
+              key={column.id}
+              align={column.align}
+              className="tableCell"
+            >
               {column.format && typeof value === "number"
                 ? column.format(value)
                 : value}

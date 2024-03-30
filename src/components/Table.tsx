@@ -16,9 +16,9 @@ import { Data, Column, TagItem, ISortOrder } from "../types/types";
 import MediportaContext from "../context/context";
 
 const columns: readonly Column[] = [
-  { id: "tag", label: "tag", minWidth: 50 },
-  { id: "count", label: "count", minWidth: 50 },
-  { id: "link", label: "link", minWidth: 200 },
+  { id: "tag", label: "tag", minWidth: 190 },
+  { id: "count", label: "count", minWidth: 30 },
+  { id: "link", label: "link", minWidth: 273 },
 ];
 
 // function createData(tag: string, count: number, link: string[]): Data {
@@ -106,67 +106,67 @@ export default function StickyHeadTable() {
   };
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <div className="topContainer">
-        <div className="sortContainer">
-          <span>Sortowanie</span>
-          <select
-            value={sortOrder}
-            onChange={(e) => setSortOrder(e.target.value as ISortOrder)}
-          >
-            <option value={""}>Select an option</option>
-            <option value={"ASCENDING"}>ascending</option>
-            <option value={"DESCENDING"}>descending</option>
-          </select>
-        </div>
-        <div className="searchContainer">
-          <input
-            placeholder="Search..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+    <div className="TableContainer">
+      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        <div className="topContainer">
+          <div className="filters">
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value as ISortOrder)}
+            >
+              <option value={""}>Sort</option>
+              <option value={"ASCENDING"}>ascending</option>
+              <option value={"DESCENDING"}>descending</option>
+            </select>
+            <input
+              placeholder="Search..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 15, 20, 25, 30, 35, 40, 45, 50]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            style={{ color: "white" }}
           />
         </div>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 15, 20, 25, 30, 35, 40, 45, 50]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          style={{ width: "50%", height: 50 }}
-        />
-      </div>
-      <TableContainer
-        sx={{ maxHeight: window.innerHeight - 50 }}
-        className="TableContainer"
-      >
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{
-                    minWidth: column.minWidth,
-                    background: "#cbd2e4",
-                  }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody className="tableBody">
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return <Row key={row.tag} columns={columns} row={row} />;
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
+        <TableContainer
+          sx={{ maxHeight: window.innerHeight - 40 - 100 }}
+          className="TableContainer"
+        >
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{
+                      minWidth: column.minWidth,
+                      background: "#121212",
+                      color: "white",
+                    }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody className="tableBody">
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  return <Row key={row.tag} columns={columns} row={row} />;
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+    </div>
   );
 }

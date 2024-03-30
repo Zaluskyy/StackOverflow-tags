@@ -56,7 +56,6 @@ const LinksPopUp: React.FC<LinksPopUpProps> = ({ row }) => {
         <h1>{tag.toUpperCase()}</h1>
         <ul>{links}</ul>
       </motion.div>
-      ;
     </>
   );
 };

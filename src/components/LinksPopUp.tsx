@@ -46,14 +46,16 @@ const LinksPopUp: React.FC<LinksPopUpProps> = ({ row }) => {
         exit={{ opacity: 0 }}
         className="LinksPopUp"
       >
-        <motion.div
-          whileHover={{ scale: 1.3, rotate: 15 }}
-          className="exitContainer"
-          onClick={closePopUp}
-        >
-          <img src={exitIcon} alt="exit" />
-        </motion.div>
-        <h1>{tag.toUpperCase()}</h1>
+        <div className="top">
+          <h1>{tag.toUpperCase()}</h1>
+          <motion.div
+            whileHover={{ scale: 1.3, rotate: 15 }}
+            className="exitContainer"
+            onClick={closePopUp}
+          >
+            <img src={exitIcon} alt="exit" />
+          </motion.div>
+        </div>
         <ul>{links}</ul>
       </motion.div>
     </>

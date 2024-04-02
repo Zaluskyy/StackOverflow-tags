@@ -15,25 +15,18 @@ import Row from "./TableRow";
 import { Data, Column, TagItem, ISortOrder } from "../types/types";
 import MediportaContext from "../context/context";
 
-export default function StickyHeadTable() {
+interface StickyHeadTableProps {
+  tagList: TagItem[];
+}
+
+const StickyHeadTable: React.FC<StickyHeadTableProps> = ({ tagList }) => {
   const context = useContext(MediportaContext);
-  const { tagList, mobile, setMobile } = context;
+  const { mobile } = context;
 
   const [rows, setRows] = useState<Data[]>([]);
 
   const [sortOrder, setSortOrder] = useState<ISortOrder>("");
   const [search, setSearch] = useState<string>("");
-
-  const getWidth = () => {
-    if (window.innerWidth <= 600) setMobile(true);
-    else setMobile(false);
-  };
-
-  useEffect(() => {
-    getWidth();
-    window.addEventListener("resize", getWidth);
-    return () => window.removeEventListener("resize", getWidth);
-  }, []);
 
   const columns: readonly Column[] = [
     { id: "tag", label: "tag", minWidth: mobile ? 100 : 190 },
@@ -156,4 +149,6 @@ export default function StickyHeadTable() {
       </Paper>
     </div>
   );
-}
+};
+
+export default StickyHeadTable;

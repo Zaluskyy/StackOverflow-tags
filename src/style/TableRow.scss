@@ -1,4 +1,8 @@
 .dataRow {
+  background-color: #1e1e1e;
+  &:hover {
+    background-color: #3c3b3b !important;
+  }
   .tableCell {
     color: white;
     border-color: rgba(255, 255, 255, 0.2);

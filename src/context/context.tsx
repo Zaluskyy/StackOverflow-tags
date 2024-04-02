@@ -14,6 +14,8 @@ export const MediportaContextProvider = ({
   const [showMoreLinks, setShowMoreLinks] = useState(false);
   const [linksPopUpData, setLinksPopUpData] = useState({});
 
+  const [mobile, setMobile] = useState<boolean>(false);
+
   return (
     <MediportaContext.Provider
       value={{
@@ -23,6 +25,8 @@ export const MediportaContextProvider = ({
         setShowMoreLinks,
         linksPopUpData,
         setLinksPopUpData,
+        mobile,
+        setMobile,
       }}
     >
       {children}

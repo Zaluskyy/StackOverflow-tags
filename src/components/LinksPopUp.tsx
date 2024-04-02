@@ -47,7 +47,7 @@ const LinksPopUp: React.FC<LinksPopUpProps> = ({ row }) => {
         className="LinksPopUp"
       >
         <motion.div
-          whileHover={{ scale: 1.2 }}
+          whileHover={{ scale: 1.3, rotate: 15 }}
           className="exitContainer"
           onClick={closePopUp}
         >

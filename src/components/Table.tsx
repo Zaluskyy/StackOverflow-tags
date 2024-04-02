@@ -15,42 +15,31 @@ import Row from "./TableRow";
 import { Data, Column, TagItem, ISortOrder } from "../types/types";
 import MediportaContext from "../context/context";
 
-const columns: readonly Column[] = [
-  { id: "tag", label: "tag", minWidth: 190 },
-  { id: "count", label: "count", minWidth: 30 },
-  { id: "link", label: "link", minWidth: 273 },
-];
-
-// function createData(tag: string, count: number, link: string[]): Data {
-//   return { tag, count, link };
-// }
-
-// const rows = [
-//   createData("India", 1, ["linkacz kurwa", "chuj"]),
-//   createData("China", 2, ["k"]),
-//   createData("Italy", 3, ["sima", "jebać"]),
-//   createData("United States", 4, ["dd"]),
-//   createData("Canada", 2, ["linkacz kurwa"]),
-//   createData("Australia", 2, ["linkacz kurwa"]),
-//   createData("Germany", 2, ["linkacz kurwa"]),
-//   createData("Ireland", 2, ["linkacz kurwa"]),
-//   createData("Mexico", 2, ["linkacz kurwa"]),
-//   createData("Japan", 2, ["linkacz kurwa"]),
-//   createData("France", 2, ["linkacz kurwa"]),
-//   createData("United Kingdom", 2, ["linkacz kurwa"]),
-//   createData("Russia", 2, ["linkacz kurwa"]),
-//   createData("Nigeria", 2, ["linkacz kurwa"]),
-//   createData("Brazil", 2, ["linkacz kurwa"]),
-// ];
-
 export default function StickyHeadTable() {
   const context = useContext(MediportaContext);
-  const { tagList } = context;
+  const { tagList, mobile, setMobile } = context;
 
   const [rows, setRows] = useState<Data[]>([]);
 
   const [sortOrder, setSortOrder] = useState<ISortOrder>("");
   const [search, setSearch] = useState<string>("");
+
+  const getWidth = () => {
+    if (window.innerWidth <= 600) setMobile(true);
+    else setMobile(false);
+  };
+
+  useEffect(() => {
+    getWidth();
+    window.addEventListener("resize", getWidth);
+    return () => window.removeEventListener("resize", getWidth);
+  }, []);
+
+  const columns: readonly Column[] = [
+    { id: "tag", label: "tag", minWidth: mobile ? 100 : 190 },
+    { id: "count", label: "count", minWidth: mobile ? 10 : 30 },
+    { id: "link", label: "link", minWidth: mobile ? 100 : 273 },
+  ];
 
   useEffect(() => {
     let filteredList = tagList;
@@ -132,13 +121,10 @@ export default function StickyHeadTable() {
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
-            style={{ color: "white" }}
+            className="tablePagination"
           />
         </div>
-        <TableContainer
-          sx={{ maxHeight: window.innerHeight - 40 - 100 }}
-          className="TableContainer"
-        >
+        <TableContainer className="TableContainer">
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
@@ -150,6 +136,7 @@ export default function StickyHeadTable() {
                       minWidth: column.minWidth,
                       background: "#121212",
                       color: "white",
+                      borderColor: "rgb(213, 115, 79, .5)",
                     }}
                   >
                     {column.label}

@@ -1,4 +1,5 @@
 .TableContainer {
+  max-height: calc(100vh - 140px);
   .topContainer {
     width: 100%;
     background-color: #565353;
@@ -6,7 +7,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100px;
+    height: 110px;
     justify-content: space-between;
 
     .filters {
@@ -31,6 +32,10 @@
         padding: 0 10px;
       }
     }
+    .tablePagination {
+      color: white;
+      height: 50%;
+    }
   }
 
   .dataRow:nth-of-type(odd) {
@@ -44,6 +49,24 @@
 
     &:hover {
       background-color: #3c3b3b;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .TableContainer {
+    width: 100vw;
+    max-height: calc(100svh - 100px);
+
+    .topContainer {
+      .filters {
+        select {
+          width: 30%;
+        }
+        input {
+          width: 30%;
+        }
+      }
     }
   }
 }

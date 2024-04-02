@@ -9,7 +9,7 @@ import { RowProps } from "../types/types";
 
 const Row: React.FC<RowProps> = ({ columns, row }) => {
   const context = useContext(MediportaContext);
-  const { setShowMoreLinks, setLinksPopUpData } = context;
+  const { setShowMoreLinks, setLinksPopUpData, mobile } = context;
 
   const [showLinks, setShowLinks] = useState(0);
 
@@ -44,7 +44,9 @@ const Row: React.FC<RowProps> = ({ columns, row }) => {
               </TableCell>
             );
           } else {
-            const shortLink = value[0].slice(0, 40) + "...";
+            const shortLink = mobile
+              ? value[0].slice(0, 20) + "..."
+              : value[0].slice(0, 40) + "...";
             return (
               <TableCell
                 key={column.id}

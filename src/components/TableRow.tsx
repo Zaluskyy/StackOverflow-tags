@@ -53,7 +53,7 @@ const Row: React.FC<RowProps> = ({ columns, row }) => {
                 align={column.align}
                 className="tableCell"
               >
-                <a href={value} target="_blank">
+                <a href={value} target="_blank" rel="noreferrer">
                   {shortLink}
                 </a>
               </TableCell>

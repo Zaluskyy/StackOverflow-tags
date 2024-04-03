@@ -27,7 +27,7 @@ function App() {
   return (
     <div className="App">
       <DataFetcher />
-      {tagList.length == 0 && <Loading />}
+      {tagList.length === 0 && <Loading />}
       {tagList.length > 0 && <StickyHeadTable tagList={tagList} />}
       <AnimatePresence>
         {showMoreLinks && <LinksPopUp row={linksPopUpData} />}

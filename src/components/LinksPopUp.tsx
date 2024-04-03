@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import "../style/LinksPopUp.scss";
 import MediportaContext from "../context/context";
 import exitIcon from "../icon/exit.svg";
@@ -24,7 +24,7 @@ const LinksPopUp: React.FC<LinksPopUpProps> = ({ row }) => {
   const links = link.map((link) => {
     return (
       <li key={link}>
-        <a href={link} target="_blank">
+        <a href={link} rel="noreferrer" target="_blank">
           {link}
         </a>
       </li>

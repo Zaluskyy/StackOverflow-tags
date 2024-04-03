@@ -36,9 +36,7 @@ const DataFetcher = () => {
       }
     };
 
-    return () => {
-      fetchData();
-    };
+    fetchData();
   }, []);
 
   return null;

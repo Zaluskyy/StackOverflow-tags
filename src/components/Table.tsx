@@ -14,6 +14,8 @@ import Row from "./TableRow";
 
 import { Data, Column, TagItem, ISortOrder } from "../types/types";
 import MediportaContext from "../context/context";
+import SelectSmall from "./Select";
+import Search from "./Search";
 
 interface StickyHeadTableProps {
   tagList: TagItem[];
@@ -92,19 +94,8 @@ const StickyHeadTable: React.FC<StickyHeadTableProps> = ({ tagList }) => {
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <div className="topContainer">
           <div className="filters">
-            <select
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value as ISortOrder)}
-            >
-              <option value={""}>Sort</option>
-              <option value={"ASCENDING"}>ascending</option>
-              <option value={"DESCENDING"}>descending</option>
-            </select>
-            <input
-              placeholder="Search..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            <SelectSmall sortOrder={sortOrder} setSortOrder={setSortOrder} />
+            <Search search={search} setSearch={setSearch} />
           </div>
           <TablePagination
             rowsPerPageOptions={[5, 10, 15, 20, 25, 30, 35, 40, 45, 50]}

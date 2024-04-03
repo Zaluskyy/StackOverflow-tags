@@ -16,15 +16,8 @@
       display: flex;
       flex-direction: row;
       justify-content: space-evenly;
-      align-items: center;
+      align-items: flex-end;
       select {
-        width: 200px;
-        height: 25px;
-        border-radius: 4px;
-        border: none;
-        padding: 0 10px;
-      }
-      input {
         width: 200px;
         height: 25px;
         border-radius: 4px;
@@ -41,18 +34,7 @@
 
 @media (max-width: 600px) {
   .TableContainer {
-    width: 100vw;
-    max-height: calc(100svh - 100px);
-
-    .topContainer {
-      .filters {
-        select {
-          width: 30%;
-        }
-        input {
-          width: 30%;
-        }
-      }
-    }
+    width: 100%;
+    max-height: calc(100svh - 110px);
   }
 }

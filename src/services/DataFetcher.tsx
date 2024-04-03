@@ -36,7 +36,7 @@ const DataFetcher = () => {
         });
     };
   }, []);
-  return <div></div>;
+  return <div style={{ display: "none" }} />;
 };
 
 export default DataFetcher;

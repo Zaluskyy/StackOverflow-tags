@@ -11,32 +11,37 @@ const DataFetcher = () => {
   const { setTagList } = context;
 
   useEffect(() => {
-    return () => {
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          const tags: { [key: string]: string[] } = {};
-          data.items.forEach((item: any) => {
-            item.tags.forEach((tag: string) => {
-              if (!tags[tag]) {
-                tags[tag] = [item.link];
-              } else {
-                tags[tag].push(item.link);
-              }
-            });
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        const tags: { [key: string]: string[] } = {};
+        data.items.forEach((item: any) => {
+          item.tags.forEach((tag: string) => {
+            if (!tags[tag]) {
+              tags[tag] = [item.link];
+            } else {
+              tags[tag].push(item.link);
+            }
           });
-          const tagArray: TagItem[] = Object.keys(tags).map((tag) => ({
-            tag,
-            links: tags[tag],
-          }));
-          setTagList(tagArray);
-        })
-        .catch((err) => {
-          console.log("There was a problem with the fetch operation: " + err);
         });
+        const tagArray: TagItem[] = Object.keys(tags).map((tag) => ({
+          tag,
+          links: tags[tag],
+        }));
+        setTagList(tagArray);
+      } catch (err) {
+        console.log("There was a problem with the fetch operation: " + err);
+      }
+    };
+
+    return () => {
+      fetchData();
     };
   }, []);
-  return <div style={{ display: "none" }} />;
+
+  return null;
 };
 
 export default DataFetcher;

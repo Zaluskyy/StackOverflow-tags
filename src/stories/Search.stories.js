@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Search from "../../components/Search";
+import Search from "../components/Search";
 
 export default {
   title: "Search",

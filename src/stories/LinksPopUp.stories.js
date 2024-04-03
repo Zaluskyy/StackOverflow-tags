@@ -1,36 +1,18 @@
-import Row from "../../components/TableRow";
+import LinksPopUp from "../components/LinksPopUp";
 
 export default {
-  title: "Table Row",
-  component: Row,
+  title: "Links pop up ",
+  component: LinksPopUp,
 };
 
-const columns = [
-  {
-    id: "tag",
-    label: "tag",
-    minWidth: 200,
-  },
-  {
-    id: "count",
-    label: "count",
-    minWidth: 200,
-  },
-  {
-    id: "link",
-    label: "link",
-    minWidth: 200,
-  },
-];
-
-const singleRow = {
+const singleLink = {
   tag: "c++",
   count: 1,
   link: [
     "https://stackoverflow.com/questions/78263555/why-is-stdvector-slower-than-new-in-this-case",
   ],
 };
-const severalRows = {
+const multipleLinks = {
   tag: "javascript",
   count: 2,
   link: [
@@ -39,15 +21,13 @@ const severalRows = {
   ],
 };
 
-const Template = (args) => <Row {...args} />;
+const Template = (args) => <LinksPopUp {...args} />;
 
 export const single = Template.bind({});
 single.args = {
-  columns,
-  row: singleRow,
+  row: singleLink,
 };
-export const several = Template.bind({});
-several.args = {
-  columns,
-  row: severalRows,
+export const multiple = Template.bind({});
+multiple.args = {
+  row: multipleLinks,
 };
